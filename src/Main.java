@@ -1,15 +1,18 @@
 public class Main {
-
-    static Calculator calc = Calculator.instance.get();
-
-    static int a = calc.plus.apply(1, 2);
-
-    // int b = calc.minus.apply(1,1); = 0 -> исключение деления на 0 для с
-    static int b = calc.minus.apply(2, 1);
-    static int c = calc.divide.apply(a, b);
-    static int d = calc.abs.apply(c);
-
     public static void main(String[] args) {
-        calc.println.accept(d);
+        Calculator calc = Calculator.instance.get();
+        int a = calc.plus.apply(1, 2);
+        int b = calc.minus.apply(1, 1);
+        int c = 0;
+
+        try {
+            c = calc.divide.apply(a, b);
+        }
+        catch (ArithmeticException e) {
+            System.out.println("Ошибка: деление на 0");
+            System.exit(1);
+        }
+
+        calc.println.accept(c);
     }
 }
